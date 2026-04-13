@@ -1,5 +1,4 @@
-# Cpp-Library-Management-System
-A simple Library Management System project built in C++
+
 📚 Library Management System in C++
 
 A console based Library Management System developed using C++ and File Handling.
@@ -30,7 +29,9 @@ Password: 1234
 📂 Project Files
 
 library_management.cpp
+
 books.txt
+
 README.md
 
 ▶️ How to Run
