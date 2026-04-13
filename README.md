@@ -2,6 +2,8 @@
 
 A console based Library Management System developed using C++ and File Handling.
 
+---
+
 🚀 Features
 
 - Admin Login
@@ -13,6 +15,8 @@ A console based Library Management System developed using C++ and File Handling.
 - Count Total Books
 - Permanent Data Storage using File Handling
 
+---
+
 🛠️ Technologies Used
 
 - C++
@@ -20,41 +24,56 @@ A console based Library Management System developed using C++ and File Handling.
 - File Handling
 - Console Application
 
+---
+
 🔐 Login Credentials
 
 Username: admin
+
 Password: 1234
+
+---
 
 📂 Project Files
 
-library_management.cpp
-books.txt
-README.md
+Library-Management-System-Cpp/
+│── library_management.cpp
+│── books.txt
+│── README.md
 
-▶️ How to Run (Windows)
+---
 
-Using Code::Blocks / Dev C++
+⚙️ How to Run
 
-1. Open "library_management.cpp"
-2. Click Build & Run
-3. Program will start in console window
+1. Compile the program
 
-Using Command Prompt (g++ Compiler)
+g++ library_management.cpp -o library_management
 
-1. Open Command Prompt in project folder
-2. Compile the code:
+2. Run the program
 
-g++ library_management.cpp -o library
+./library_management
 
-3. Run the program:
+(Windows users can use "library_management.exe")
 
-library.exe
+---
 
-4. Login using credentials and use menu options
+💡 Key Highlights
+
+- Secure admin login system with username and password
+- Add, search, update, and delete books easily
+- Stores book records permanently in "books.txt"
+- Counts total number of books available
+- Menu driven interface for easy navigation
+- Built using Object Oriented Programming concepts
+- Simple and beginner friendly console application
+
+---
 
 👨‍💻 Author
 
 Yogesh Kumar
+
+---
 
 ⭐ Support
 
