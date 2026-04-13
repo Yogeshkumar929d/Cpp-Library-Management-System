@@ -1,4 +1,3 @@
-
 📚 Library Management System in C++
 
 A console based Library Management System developed using C++ and File Handling.
@@ -24,23 +23,34 @@ A console based Library Management System developed using C++ and File Handling.
 🔐 Login Credentials
 
 Username: admin
-
 Password: 1234
 
 📂 Project Files
 
 library_management.cpp
-
 books.txt
-
 README.md
 
-▶️ How to Run
+▶️ How to Run (Windows)
 
-1. Compile the C++ code
-2. Run the program
-3. Login using credentials
-4. Use menu options
+Using Code::Blocks / Dev C++
+
+1. Open "library_management.cpp"
+2. Click Build & Run
+3. Program will start in console window
+
+Using Command Prompt (g++ Compiler)
+
+1. Open Command Prompt in project folder
+2. Compile the code:
+
+g++ library_management.cpp -o library
+
+3. Run the program:
+
+library.exe
+
+4. Login using credentials and use menu options
 
 👨‍💻 Author
 
