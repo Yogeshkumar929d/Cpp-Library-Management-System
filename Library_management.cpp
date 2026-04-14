@@ -58,9 +58,7 @@ void addBook()
 
     ofstream file("books.txt", ios::app);
 
-    file << b.id << endl;
-    file << b.name << endl;
-    file << b.author << endl;
+    file << b.id << "|" << b.name << "|"       << b.author << endl;
 
     file.close();
 
