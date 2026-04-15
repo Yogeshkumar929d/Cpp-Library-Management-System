@@ -1,5 +1,6 @@
 #include<iostream>
 #include<fstream>
+#include<sstream>
 #include<cstdio>
 #include<string>
 using namespace std;
@@ -12,23 +13,37 @@ public:
     string author;
 };
 
+bool parseBook(string line, Book &b)
+{
+    stringstream ss(line);
+    string tempId;
+
+    getline(ss, tempId, '|');
+    getline(ss, b.name, '|');
+    getline(ss, b.author, '|');
+
+    if(tempId == "")
+        return false;
+
+    b.id = stoi(tempId);
+    return true;
+}
+
 bool isDuplicateId(int checkId)
 {
     ifstream file("books.txt");
+    string line;
+    Book b;
 
-    int id;
-    string name, author;
-
-    while(file >> id)
+    while(getline(file, line))
     {
-        file.ignore();
-        getline(file, name);
-        getline(file, author);
-
-        if(id == checkId)
+        if(parseBook(line, b))
         {
-            file.close();
-            return true;
+            if(b.id == checkId)
+            {
+                file.close();
+                return true;
+            }
         }
     }
 
@@ -46,7 +61,7 @@ void addBook()
 
     if(isDuplicateId(b.id))
     {
-        cout << "Book ID already exists!";
+        cout << "Book ID Already Exists!";
         return;
     }
 
@@ -58,9 +73,7 @@ void addBook()
 
     ofstream file("books.txt", ios::app);
 
-    file << b.id << endl;
-    file << b.name << endl;
-    file << b.author << endl;
+    file << b.id << "|" << b.name << "|" << b.author << endl;
 
     file.close();
 
@@ -70,24 +83,22 @@ void addBook()
 void showBooks()
 {
     ifstream file("books.txt");
-
-    int id;
-    string name, author;
+    string line;
+    Book b;
     bool found = false;
 
-    while(file >> id)
+    while(getline(file, line))
     {
-        file.ignore();
-        getline(file, name);
-        getline(file, author);
+        if(parseBook(line, b))
+        {
+            cout << "\n--------------------------------";
+            cout << "\nID      : " << b.id;
+            cout << "\nName    : " << b.name;
+            cout << "\nAuthor  : " << b.author;
+            cout << "\n--------------------------------\n";
 
-        cout << "\n------------------------";
-        cout << "\nID     : " << id;
-        cout << "\nName   : " << name;
-        cout << "\nAuthor : " << author;
-        cout << "\n------------------------\n";
-
-        found = true;
+            found = true;
+        }
     }
 
     file.close();
@@ -103,26 +114,24 @@ void searchBook()
     cin >> searchId;
 
     ifstream file("books.txt");
-
-    int id;
-    string name, author;
+    string line;
+    Book b;
     bool found = false;
 
-    while(file >> id)
+    while(getline(file, line))
     {
-        file.ignore();
-        getline(file, name);
-        getline(file, author);
-
-        if(id == searchId)
+        if(parseBook(line, b))
         {
-            cout << "\nBook Found!";
-            cout << "\nID     : " << id;
-            cout << "\nName   : " << name;
-            cout << "\nAuthor : " << author << endl;
+            if(b.id == searchId)
+            {
+                cout << "\nBook Found!";
+                cout << "\nID      : " << b.id;
+                cout << "\nName    : " << b.name;
+                cout << "\nAuthor  : " << b.author;
 
-            found = true;
-            break;
+                found = true;
+                break;
+            }
         }
     }
 
@@ -142,34 +151,31 @@ void updateBook()
     ifstream file("books.txt");
     ofstream temp("temp.txt");
 
-    int id;
-    string name, author;
+    string line;
+    Book b;
     bool found = false;
 
-    while(file >> id)
+    while(getline(file, line))
     {
-        file.ignore();
-        getline(file, name);
-        getline(file, author);
-
-        if(id == updateId)
+        if(parseBook(line, b))
         {
-            found = true;
+            if(b.id == updateId)
+            {
+                found = true;
 
-            cout << "Enter New Book ID: ";
-            cin >> id;
-            cin.ignore();
+                cout << "Enter New Book ID: ";
+                cin >> b.id;
+                cin.ignore();
 
-            cout << "Enter New Book Name: ";
-            getline(cin, name);
+                cout << "Enter New Book Name: ";
+                getline(cin, b.name);
 
-            cout << "Enter New Author Name: ";
-            getline(cin, author);
+                cout << "Enter New Author Name: ";
+                getline(cin, b.author);
+            }
+
+            temp << b.id << "|" << b.name << "|" << b.author << endl;
         }
-
-        temp << id << endl;
-        temp << name << endl;
-        temp << author << endl;
     }
 
     file.close();
@@ -193,25 +199,22 @@ void deleteBook()
     ifstream file("books.txt");
     ofstream temp("temp.txt");
 
-    int id;
-    string name, author;
+    string line;
+    Book b;
     bool found = false;
 
-    while(file >> id)
+    while(getline(file, line))
     {
-        file.ignore();
-        getline(file, name);
-        getline(file, author);
-
-        if(id == deleteId)
+        if(parseBook(line, b))
         {
-            found = true;
-            continue;
-        }
+            if(b.id == deleteId)
+            {
+                found = true;
+                continue;
+            }
 
-        temp << id << endl;
-        temp << name << endl;
-        temp << author << endl;
+            temp << b.id << "|" << b.name << "|" << b.author << endl;
+        }
     }
 
     file.close();
@@ -229,16 +232,13 @@ void deleteBook()
 void totalBooks()
 {
     ifstream file("books.txt");
+    string line;
+    int total = 0;
 
-    int id, total = 0;
-    string name, author;
-
-    while(file >> id)
+    while(getline(file, line))
     {
-        file.ignore();
-        getline(file, name);
-        getline(file, author);
-        total++;
+        if(line != "")
+            total++;
     }
 
     file.close();
